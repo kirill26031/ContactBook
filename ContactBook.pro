@@ -16,10 +16,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Contact.cpp \
+    ContactBook.cpp \
+    Name.cpp \
+    Phone.cpp \
     main.cpp \
     book.cpp
 
 HEADERS += \
+    Contact.h \
+    ContactBook.h \
+    Name.h \
+    Phone.h \
     book.h
 
 FORMS += \
