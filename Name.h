@@ -1,3 +1,6 @@
+#ifndef NAME_H
+#define NAME_H
+
 #ifndef STRING
 #include <string>
 #include <iostream>
@@ -28,3 +31,4 @@ private:
 	static std::set<std::string> used_names;
 };
 
+#endif

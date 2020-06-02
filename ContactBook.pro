@@ -17,7 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Contact.cpp \
-    ContactBook.cpp \
+    Name.cpp \
     Name.cpp \
     Phone.cpp \
     main.cpp \
@@ -25,13 +25,14 @@ SOURCES += \
 
 HEADERS += \
     Contact.h \
-    ContactBook.h \
+    Name.h \
     Name.h \
     Phone.h \
     book.h
 
 FORMS += \
-    book.ui
+    book.ui \
+    contact.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,18 +1,19 @@
 #include "Contact.h"
+#include "ui_contact.h"
 
-Contact Contact::empty = Contact(Name(Name::default_name));
 std::map<Phone, Contact> Contact::phone_owner;
 
-Contact::Contact(const Name& _name):name(_name),phones(std::set<Phone>())
+Contact::Contact(const Name& _name, QWidget *parent):QWidget(parent),
+    name(_name),phones(std::set<Phone>()), ui(new Ui::Contact)
 {
 	if (Name::used(name.print())) throw Contact::BadName(name.print());
 	if(_name.print()!=Name::default_name) Name::addUsage(name.print());
+   setupUI();
 }
 
-Contact::Contact(const Contact & contact):name(contact.getName()), phones(contact.getPhones())
-{
-
-}
+Contact::Contact(const Contact & contact):
+    name(contact.getName()), phones(contact.getPhones()), ui(contact.getUI())
+{}
 
 Contact & Contact::operator=(const Contact &other)
 {
@@ -23,7 +24,7 @@ Contact & Contact::operator=(const Contact &other)
 
 Contact::~Contact()
 {
-	//Name::deleteUsage(name.print());
+    delete ui;
 }
 
 
@@ -53,5 +54,12 @@ bool Contact::delPhone(const Phone& phone)
 
 bool Contact::operator<(const Contact & contact) const
 {
-	return name < contact.getName();
+    return name < contact.getName();
+}
+
+void Contact::setupUI()
+{
+    ui->setupUi(this);
+    ui->name->setText(QString(name.print().data()));
+
 }

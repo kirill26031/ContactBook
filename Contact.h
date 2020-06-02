@@ -1,12 +1,22 @@
+#ifndef CONTACT_H
+#define CONTACT_H
+
 #include  "Name.h"
 #include "Phone.h"
 
 #include <map>
+#include <QWidget>
 
-class Contact
+QT_BEGIN_NAMESPACE
+namespace Ui { class Contact; }
+QT_END_NAMESPACE
+
+class Contact: public QWidget
 {
+    Q_OBJECT
+
 public:
-	Contact(const Name& name);
+    Contact(const Name& name, QWidget *parent = nullptr);
 	Contact(const Contact& contact);
 	Contact& operator=(const Contact&);
 	~Contact();
@@ -26,11 +36,13 @@ public:
 	const std::set<Phone>& getPhones() const { return phones; }
 	bool addPhone(const Phone& phone);
 	bool delPhone(const Phone& phone);
-	bool operator< (const Contact& contact) const;
-	static Contact empty;
+    bool operator< (const Contact& contact) const;
 	static std::map<Phone, Contact> phone_owner;
+    Ui::Contact* getUI() const {return ui;}
 private:
 	Name name;
 	std::set<Phone> phones;
+    Ui::Contact *ui;
 };
 
+#endif

@@ -1,3 +1,6 @@
+#ifndef PHONE_H
+#define PHONE_H
+
 #ifndef STRING
 #include <string>
 #include <iostream>
@@ -39,3 +42,4 @@ private:
 	
 };
 
+#endif
