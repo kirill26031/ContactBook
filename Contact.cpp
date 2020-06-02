@@ -61,5 +61,28 @@ void Contact::setupUI()
 {
     ui->setupUi(this);
     ui->name->setText(QString(name.print().data()));
+    QIcon closeButtonIcon(QPixmap("../ContactBook/resources/Trash.png"));
+    ui->btnClose->setIcon(closeButtonIcon);
+    ui->btnClose->setIconSize(ui->btnClose->size());
+//    ui->btnClose->addAction(ui->actionDeleteContact);
 
+    QIcon addPhoneButtonIcon(QPixmap("../ContactBook/resources/plus.png"));
+    ui->btnAddPhone->setIcon(addPhoneButtonIcon);
+    ui->btnAddPhone->setIconSize(ui->btnAddPhone->size());
+    ui->btnClose->addAction(ui->actionaddPhone);
+}
+
+
+void Contact::on_actionaddPhone_triggered()
+{
+
+}
+
+void deleteContact_signal(Contact* contact)
+{}
+
+void Contact::on_actionDeleteContact_triggered()
+{
+    std::cout<<"Here";
+    deleteContact_signal(this);
 }

@@ -10,10 +10,22 @@
     <height>288</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Book</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -27,6 +39,9 @@
           <widget class="QRadioButton" name="rbName">
            <property name="text">
             <string>Name</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -66,6 +81,12 @@
          <height>153</height>
         </rect>
        </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QVBoxLayout" name="scrollLayout">
@@ -98,6 +119,26 @@
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAddContact">
+   <property name="text">
+    <string>AddContact</string>
+   </property>
+  </action>
+  <action name="actionSearchMode_Name">
+   <property name="text">
+    <string>SearchMode_Name</string>
+   </property>
+  </action>
+  <action name="actionSearchMode_Phone">
+   <property name="text">
+    <string>SearchMode_Phone</string>
+   </property>
+  </action>
+  <action name="actionSearch">
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

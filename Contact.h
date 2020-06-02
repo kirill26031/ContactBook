@@ -37,9 +37,16 @@ public:
 	bool addPhone(const Phone& phone);
 	bool delPhone(const Phone& phone);
     bool operator< (const Contact& contact) const;
-	static std::map<Phone, Contact> phone_owner;
+    static std::map<Phone, Contact> phone_owner;
     Ui::Contact* getUI() const {return ui;}
+signals:
+    void deleteContact_signal(Contact* contact);
+private slots:
+    void on_actionaddPhone_triggered();
+    void on_actionDeleteContact_triggered();
+
 private:
+    void setupUI();
 	Name name;
 	std::set<Phone> phones;
     Ui::Contact *ui;

@@ -18,10 +18,15 @@ public:
     void searchName(std::string name);
     void searchPhone(std::string phone);
 
-public slots:	bool delContact(const Contact& contact);
+public slots:	bool delContact(Contact* contact);
+
+private slots:
+    void on_actionAddContact_triggered();
+
+    void on_actionSearchMode_Name_triggered();
 
 private:
-    std::set<Contact> contacts;
+    std::set<Contact*> contacts;
     Ui::Book *ui;
 
 };
