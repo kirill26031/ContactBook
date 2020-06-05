@@ -16,7 +16,7 @@ greeting("Input your command\nFor help, type: 'help'"), book(new ContactBook), c
 void Task::run()
 {
     qout<<greeting.data()<<endl;
-    if(current==0) greeting.clear();
+    greeting.clear();
     std::string input;
     std::getline(std::cin, input, '\n');
     QStringList qls(QString(input.data()).split(' '));
@@ -25,6 +25,7 @@ void Task::run()
     else if(qls.at(0)=="contact") contact(qls);
     else if(qls.at(0)=="phone") phone(qls);
     else if(qls.at(0)=="search") search(qls);
+    else if(qls.at(0)=="all") showAll();
     else if(input=="stop") emit finished();
     else{
         qout<<"Your input is incorrect: \""<<input.data()<<'\"'<<endl;
@@ -55,8 +56,7 @@ void Task::contact(const QStringList list)
                         Phone* phone(new Phone(list.at(i).toStdString()));
                         new_c->addPhone(phone);
                     }
-                    current=new_c;
-                    qout<<"\nAdded contact:";
+                    qout<<"\nAdded contact:"<<new_c->print().data();
                 } catch (const Contact::BadName& error) {
                     qout<<error.show().data();
                 }
@@ -96,7 +96,45 @@ void Task::contact(const QStringList list)
 
 void Task::phone(const QStringList list)
 {
-
+    bool correct=true;
+    if(list.size()>=3){
+        if(list.at(1)=="add"){
+            if(list.size()>=4){
+                std::string name = list.at(2).toStdString();
+                if(name.at(0)=='\"' && name.at(name.size()-1)=='\"'){
+                    name=name.substr(1,name.size()-2);
+                }
+                Contact* contact(book->searchName(name));
+                for(int i=3; i<list.size(); ++i){
+                    if(contact->addPhone(new Phone(list.at(i).toStdString()))){
+                        qout<<"Added phone number: "<<list.at(i)<<" to contact: "<<contact->getName().print().data();
+                    }
+                }
+            }
+            else correct=false;
+        }
+        else if(list.at(1)=="delete"){
+            for(int i=2; i<list.size(); ++i){
+                std::string phone(list.at(i).toStdString());
+                if(book->searchPhone(phone)->delPhone(phone)){
+                    qout<<"\nDeleted phone number: "<<phone.data();
+                }
+            }
+        }
+        else correct=false;
+    }
+    else if(list.size()>=1 && list.at(1)=="all"){
+        for(std::string u_p : Phone::used_phones){
+            qout<<"\n"<<u_p.data();
+        }
+    }
+    if(list.size()==1 || !correct){
+        qout<<"To show all used phones, type 'phone all'"<<
+              "\nTo add phone numbers [<phone1>, <phone2>,...] to the contact with name <name> "<<
+              "type 'phone add <name> <phone1> <phone2>'"<<
+              "\nTo delete phone numbers [<phone1>, <phone2>,...] type 'phone delete <phone1> <phone2>'"<<
+              "\nIf your <name> has ' ', use braces \"\""<<endl;
+    }
 }
 
 void Task::search(const QStringList list)

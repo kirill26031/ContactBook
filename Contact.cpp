@@ -47,7 +47,17 @@ bool Contact::delPhone(Phone* phone)
 	phones.erase(phone);
     Phone::deleteUsage(phone->print());
 	Contact::phone_owner.erase(phone);
-	return true;
+    return true;
+}
+
+bool Contact::delPhone(std::string phone)
+{
+    for(Phone* i : phones){
+        if(i->print()==phone){
+            return delPhone(i);
+        }
+    }
+    return false;
 }
 
 bool Contact::operator<(const Contact & contact) const

@@ -32,9 +32,10 @@ public:
 	static bool correct(std::string number);
 	static void addUsage(std::string s);
 	static void deleteUsage(std::string s);
+    static std::set<std::string> used_phones;
+    bool operator==(const Phone& phone);
 private:
 	std::string record;
-	static std::set<std::string> used_phones;
 	Phone& operator=(const Phone&);
 	
 };

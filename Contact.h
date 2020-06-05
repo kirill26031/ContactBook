@@ -26,6 +26,7 @@ public:
     const std::set<Phone*>& getPhones() const { return phones; }
     bool addPhone(Phone* phone);
     bool delPhone(Phone* phone);
+    bool delPhone(std::string phone);
     bool operator< (const Contact& contact) const;
     static std::map<Phone*, Contact*> phone_owner;
     std::string print();
