@@ -57,7 +57,7 @@ Contact * ContactBook::searchName(std::string name)
 
 Contact* ContactBook::searchPhone(std::string phone)
 {
-    auto found = Contact::phone_owner.find(new Phone(phone));
+    auto found = Contact::phone_owner.find(Phone(phone));
     if(found == Contact::phone_owner.end())	return 0;
     return (*found).second;
 }

@@ -36,7 +36,24 @@ void Task::run()
 
 void Task::help(const QStringList list)
 {
-
+	qout << "This interface provides next commands:" << endl;
+	qout << "contact" << endl;
+	qout << "To show all used contact names, type 'contact all'" <<
+		"\nTo add new contact, type 'contact add <name> [<phone1> <phone2> ...]'" <<
+		"\nTo delete contact type 'contact delete <name>'" <<
+		"\nTo navigate yourself to contact type 'contact go <name>'" <<
+		"\nIf your <name> has ' ', use braces \"\"" << endl<<endl;
+	qout << "Phone";
+	qout << "To show all used phones, type 'phone all'" <<
+		"\nTo add phone numbers [<phone1>, <phone2>,...] to the contact with name <name> " <<
+		"type 'phone add <name> <phone1> <phone2>'" <<
+		"\nTo delete phone numbers [<phone1>, <phone2>,...] type 'phone delete <phone1> <phone2>'" <<
+		"\nIf your <name> has ' ', use braces \"\"" << endl<<endl;
+	qout << "search" << endl;
+	qout << "To search by name type 'search name <name>'" <<
+		"\nTo search by phone number type 'search phone <phone>'" << endl<<endl;
+	qout << "all" << endl;
+	qout << "Show all contacts" << endl;
 }
 
 void Task::contact(const QStringList list)
@@ -45,9 +62,7 @@ void Task::contact(const QStringList list)
     if(list.size()>1){
         if(list.size()>2){
             std::string name = list.at(2).toStdString();
-            if(name.at(0)=='\"' && name.at(name.size()-1)=='\"'){
-                name=name.substr(1,name.size()-2);
-            }
+			name = getName(name);
             if(list.at(1)=="add"){
                 try {
                     Contact* new_c(new Contact(Name(name)));
@@ -101,9 +116,7 @@ void Task::phone(const QStringList list)
         if(list.at(1)=="add"){
             if(list.size()>=4){
                 std::string name = list.at(2).toStdString();
-                if(name.at(0)=='\"' && name.at(name.size()-1)=='\"'){
-                    name=name.substr(1,name.size()-2);
-                }
+				name = getName(name);
                 Contact* contact(book->searchName(name));
                 for(int i=3; i<list.size(); ++i){
                     if(contact->addPhone(new Phone(list.at(i).toStdString()))){
@@ -139,7 +152,24 @@ void Task::phone(const QStringList list)
 
 void Task::search(const QStringList list)
 {
-
+	if (list.size() == 3 && list.at(1) == "name") {
+		std::string name = getName(list.at(2).toStdString());
+		Contact* contact = book->searchName(name);
+		if(contact!=0)
+		qout<<"\nSearch result:\n"<<contact->print().data();
+		else qout << "\nNothing found!";
+	}
+	else if (list.size() == 3 && list.at(1) == "phone") {
+		std::string phone = list.at(2).toStdString();
+		Contact* contact = book->searchPhone(phone);
+		if (contact != 0)
+			qout << "\nSearch result:\n" << contact->print().data();
+		else qout << "\nNothing found!";
+	}
+	else {
+		qout << "To search by name type 'search name <name>'" << 
+			"\nTo search by phone number type 'search phone <phone>'"<<endl;
+	}
 }
 
 void Task::showAll()
@@ -147,4 +177,12 @@ void Task::showAll()
     for(Contact* contact : book->contacts){
         qout<<contact->print().data()<<endl;
     }
+}
+
+std::string Task::getName(std::string name)
+{
+	if (name.at(0) == '\"' && name.at(name.size() - 1) == '\"') {
+		return name.substr(1, name.size() - 2);
+	}
+	return name;
 }

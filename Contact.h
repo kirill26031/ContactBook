@@ -28,7 +28,7 @@ public:
     bool delPhone(Phone* phone);
     bool delPhone(std::string phone);
     bool operator< (const Contact& contact) const;
-    static std::map<Phone*, Contact*> phone_owner;
+    static std::map<Phone, Contact*> phone_owner;
     std::string print();
 private:
 	Name name;

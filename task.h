@@ -26,5 +26,6 @@ void contact(const QStringList list);
 void phone(const QStringList list);
 void search(const QStringList list);
 void showAll();
+std::string getName(std::string name);
 };
 #endif // TASK_H

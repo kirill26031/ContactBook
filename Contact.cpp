@@ -1,6 +1,6 @@
 #include "Contact.h"
 
-std::map<Phone*, Contact*> Contact::phone_owner;
+std::map<Phone, Contact*> Contact::phone_owner;
 
 Contact::Contact(const Name& _name):name(_name),phones(std::set<Phone*>())
 {
@@ -37,7 +37,7 @@ bool Contact::addPhone(Phone* phone)
     if (Phone::used(phone->print()) || !Phone::correct(phone->print())) return false;
     Phone::addUsage(phone->print());
     phones.insert(phone);
-    Contact::phone_owner.insert(std::pair<Phone*, Contact*>(phone, this));
+    Contact::phone_owner.insert(std::pair<Phone, Contact*>(*phone, this));
 	return true;
 }
 
@@ -46,7 +46,7 @@ bool Contact::delPhone(Phone* phone)
 	if (phones.find(phone) == phones.end()) return false;
 	phones.erase(phone);
     Phone::deleteUsage(phone->print());
-	Contact::phone_owner.erase(phone);
+	Contact::phone_owner.erase(*phone);
     return true;
 }
 
