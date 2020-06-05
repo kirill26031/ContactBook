@@ -43,8 +43,8 @@ void Task::help(const QStringList list)
 		"\nTo delete contact type 'contact delete <name>'" <<
 		"\nTo navigate yourself to contact type 'contact go <name>'" <<
 		"\nIf your <name> has ' ', use braces \"\"" << endl<<endl;
-	qout << "Phone";
-	qout << "To show all used phones, type 'phone all'" <<
+    qout << "phone"<<endl;
+    qout << "To show all used phones, type 'phone all'" <<
 		"\nTo add phone numbers [<phone1>, <phone2>,...] to the contact with name <name> " <<
 		"type 'phone add <name> <phone1> <phone2>'" <<
 		"\nTo delete phone numbers [<phone1>, <phone2>,...] type 'phone delete <phone1> <phone2>'" <<
@@ -136,7 +136,7 @@ void Task::phone(const QStringList list)
         }
         else correct=false;
     }
-    else if(list.size()>=1 && list.at(1)=="all"){
+    else if(list.size()>1 && list.at(1)=="all"){
         for(std::string u_p : Phone::used_phones){
             qout<<"\n"<<u_p.data();
         }
