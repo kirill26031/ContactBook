@@ -1,6 +1,6 @@
 #include "ContactBook.h"
 
-ContactBook::ContactBook():contacts(std::set<Contact>())
+ContactBook::ContactBook():contacts(std::set<Contact*>())
 {
 }
 
@@ -12,7 +12,7 @@ bool ContactBook::addContact(std::string s)
 {
 	try {
 		Name name(s);
-		Contact contact(name);
+        Contact* contact(new Contact(name));
 		contacts.insert(contact);
 	}
 	catch (const Contact::BadName& error) {
@@ -23,9 +23,9 @@ bool ContactBook::addContact(std::string s)
 
 bool ContactBook::delContact(std::string name)
 {
-	for (const Contact& c : contacts) {
-		if (c.getName().print() == name) {
-			c.deleteUsage();
+    for (Contact* c : contacts) {
+        if (c->getName().print() == name) {
+            c->deleteUsage();
 			contacts.erase(c);
 			return true;
 		}
@@ -33,32 +33,32 @@ bool ContactBook::delContact(std::string name)
 	return false;
 }
 
-void ContactBook::addContact(Contact& contact)
+void ContactBook::addContact(Contact* contact)
 {
 	contacts.insert(contact);
 }
 
-bool ContactBook::delContact(const Contact & contact)
+bool ContactBook::delContact(Contact* contact)
 {
 	auto i = contacts.find(contact);
 	if (i == contacts.end()) return false;
-	i->deleteUsage();
+    (*i)->deleteUsage();
 	contacts.erase(i);
 	return true;
 }
 
-const Contact & ContactBook::searchName(std::string name)
+Contact * ContactBook::searchName(std::string name)
 {
-	for (const Contact& c : contacts) {
-		if (c.getName().print() == name) return c;
+    for (Contact* c : contacts) {
+        if (c->getName().print() == name) return c;
 	}
-	return Contact::empty;
+    return 0;
 }
 
-const Contact & ContactBook::searchPhone(std::string phone)
+Contact* ContactBook::searchPhone(std::string phone)
 {
-	auto found = Contact::phone_owner.find(Phone(phone));
-	if(found == Contact::phone_owner.end())	return Contact::empty;
-	return found->second;
+    auto found = Contact::phone_owner.find(new Phone(phone));
+    if(found == Contact::phone_owner.end())	return 0;
+    return (*found).second;
 }
 

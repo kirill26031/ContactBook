@@ -16,21 +16,21 @@ public:
 		~BadName() {}
 		BadName(const BadName& bad_name) :record(bad_name.record){}
 		std::string record;
-		std::string show() const { return std::string("Name " + record + " already used!"); }
+        std::string show() const { return std::string("\nName " + record + " already used!"); }
 	private:
 		
 		BadName& operator=(const BadName&);
 	};
 	Name getName() const { return name; }
 	void deleteUsage() const;
-	const std::set<Phone>& getPhones() const { return phones; }
-	bool addPhone(const Phone& phone);
-	bool delPhone(const Phone& phone);
-	bool operator< (const Contact& contact) const;
-	static Contact empty;
-	static std::map<Phone, Contact> phone_owner;
+    const std::set<Phone*>& getPhones() const { return phones; }
+    bool addPhone(Phone* phone);
+    bool delPhone(Phone* phone);
+    bool operator< (const Contact& contact) const;
+    static std::map<Phone*, Contact*> phone_owner;
+    std::string print();
 private:
 	Name name;
-	std::set<Phone> phones;
+    std::set<Phone*> phones;
 };
 

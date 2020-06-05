@@ -1,34 +1,25 @@
 #include "Name.h"
 
 std::set<std::string> Name::used_names;
-std::string Name::default_name("");
 Name::Name(std::string s):record(s)
 {
-	/*if (used(s)) throw new Name::BadName(s);
-	Name::used_names.insert(std::pair<std::string, unsigned int>(s, 1));*/
-	std::cout << "\nCreated Name: " << record;
+//	std::cout << "\nCreated Name: " << record;
 }
 
 Name::~Name()
 {
-	/*unsigned int used_amount = used_names.find(record)->second;
-	used_names.erase(record);
-	if (used_amount != 1) Name::used_names.insert(std::pair<std::string, unsigned int>(record, used_amount - 1));*/
-	std::cout << "\nDeleted Name: " << record;
+//	std::cout << "\nDeleted Name: " << record;
 }
 
 Name::Name(const Name & name):record(name.print())
 {
-	/*unsigned int used_amount = used_names.find(record)->second;
-	used_names.erase(record);
-	if (used_amount != 1) Name::used_names.insert(std::pair<std::string, unsigned int>(record, used_amount + 1));*/
-	std::cout << "\nCopied Name: " << record;
+//	std::cout << "\nCopied Name: " << record;
 }
 
 Name & Name::operator=(const Name &other)
 {
 	record = other.print();
-	std::cout << "\nCopied= Name: " << record;
+//	std::cout << "\nCopied= Name: " << record;
 	return *this;
 }
 

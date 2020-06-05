@@ -21,8 +21,7 @@ public:
 	std::string print() const { return record; }
 	static void addUsage(std::string s);
 	static void deleteUsage(std::string s);
-	static bool used(std::string s);
-	static std::string default_name;
+    static bool used(std::string s);
 private:
 	std::string record;
 	static std::set<std::string> used_names;

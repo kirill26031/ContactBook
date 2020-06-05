@@ -6,7 +6,7 @@ Phone::Phone(std::string s) :record(s)
 {
 	//if (!correct(s)) throw new Phone::BadPhone(s, 1);
 	//Phone::used_phones.insert(std::pair<std::string, unsigned int>(s, 1));
-	std::cout << "\nCreated Phone: " << record;
+//	std::cout << "\nCreated Phone: " << record;
 }
 
 Phone::~Phone()
@@ -14,7 +14,7 @@ Phone::~Phone()
 	/*unsigned int used_amount = used_phones.find(record)->second;
 	used_phones.erase(record);
 	if (used_amount != 1) Phone::used_phones.insert(std::pair<std::string, unsigned int>(record, used_amount - 1));*/
-	std::cout << "\nDeleted Phone: " << record;
+//	std::cout << "\nDeleted Phone: " << record;
 }
 
 Phone::Phone(const Phone & name) :record(name.print())
@@ -22,7 +22,7 @@ Phone::Phone(const Phone & name) :record(name.print())
 	/*unsigned int used_amount = used_phones.find(record)->second;
 	used_phones.erase(record);
 	if (used_amount != 1) Phone::used_phones.insert(std::pair<std::string, unsigned int>(record, used_amount + 1));*/
-	std::cout << "\nCopied Phone: " << record;
+//	std::cout << "\nCopied Phone: " << record;
 }
 
 bool Phone::operator<(const Phone & e) const
